@@ -25,8 +25,7 @@ SOFTWARE.
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Debug
-{
+public static class Debug {
     private static readonly int DEFAULT_SIZE = 12;
 
     public static bool IsEnabled = true;
@@ -37,75 +36,62 @@ public static class Debug
 
     private static IList<string> m_objects = new List<string>();
 
-    public static void Add( object obj )
-    {
+    public static bool isDebugBuild => UnityEngine.Debug.isDebugBuild;
+    public static ILogger unityLogger => UnityEngine.Debug.unityLogger;
+
+    public static void Add(object obj) {
         var name = obj.GetType().FullName;
-        if ( !m_objects.Contains( name ) )
-        {
-            m_objects.Add( name );
+        if (!m_objects.Contains(name)) {
+            m_objects.Add(name);
         }
     }
 
-    public static void Remove( object obj )
-    {
+    public static void Remove(object obj) {
         var name = obj.GetType().FullName;
-        if ( m_objects.Contains( name ) )
-        {
-            m_objects.Remove( name );
+        if (m_objects.Contains(name)) {
+            m_objects.Remove(name);
         }
     }
 
-    public static void Log( object obj, object message )
-    {
+    public static void Log(object obj, object message) {
         var name = obj.GetType().FullName;
-        if ( m_objects.Contains( name ) )
-        {
-            Log( "[" + name + "]: " + message );
+        if (m_objects.Contains(name)) {
+            Log("[" + name + "]: " + message);
         }
     }
 
-    public static void LogWarning( object obj, object message )
-    {
+    public static void LogWarning(object obj, object message) {
         var name = obj.GetType().FullName;
-        if ( m_objects.Contains( name ) )
-        {
-            LogWarning( "[" + name + "]: " + message );
+        if (m_objects.Contains(name)) {
+            LogWarning("[" + name + "]: " + message);
         }
     }
 
-    public static void LogError( object obj, object message )
-    {
+    public static void LogError(object obj, object message) {
         var name = obj.GetType().FullName;
-        if ( m_objects.Contains( name ) )
-        {
-            LogError( "[" + name + "]: " + message );
+        if (m_objects.Contains(name)) {
+            LogError("[" + name + "]: " + message);
         }
     }
 
-    public static void LogBold( object obj, object message )
-    {
+    public static void LogBold(object obj, object message) {
         var name = obj.GetType().FullName;
-        if ( m_objects.Contains( name ) )
-        {
-            Log( ApplyStyle( "[" + name + "]: " + "<b>" + message + "</b>" ) );
+        if (m_objects.Contains(name)) {
+            Log(ApplyStyle("[" + name + "]: " + "<b>" + message + "</b>"));
         }
     }
 
-    public static void LogItalic( object obj, object message )
-    {
+    public static void LogItalic(object obj, object message) {
         var name = obj.GetType().FullName;
-        if ( m_objects.Contains( name ) )
-        {
-            Log( ApplyStyle( "[" + name + "]: " + "<i>" + message + "</i>" ) );
+        if (m_objects.Contains(name)) {
+            Log(ApplyStyle("[" + name + "]: " + "<i>" + message + "</i>"));
         }
     }
 
-    public static void LogColor( object obj, object message, string color )
-    {
+    public static void LogColor(object obj, object message, string color) {
         var name = obj.GetType().FullName;
-        if ( m_objects.Contains( name ) )
-        {
-            Log( ApplyStyle( "[" + name + "]: " + "<color=" + color + ">" + message + "</color>" ) );
+        if (m_objects.Contains(name)) {
+            Log(ApplyStyle("[" + name + "]: " + "<color=" + color + ">" + message + "</color>"));
         }
     }
 
@@ -113,51 +99,40 @@ public static class Debug
 
     #region Log RichText
 
-    public static void LogBold( object message )
-    {
-        Log( ApplyStyle( "<b>" + message + "</b>" ) );
+    public static void LogBold(object message) {
+        Log(ApplyStyle("<b>" + message + "</b>"));
     }
 
-    public static void LogItalic( object message )
-    {
-        Log( ApplyStyle( "<i>" + message + "</i>" ) );
+    public static void LogItalic(object message) {
+        Log(ApplyStyle("<i>" + message + "</i>"));
     }
 
-    public static void LogColor( object message, string color )
-    {
-        Log( ApplyStyle( "<color=" + color + ">" + message + "</color>" ) );
+    public static void LogColor(object message, string color) {
+        Log(ApplyStyle("<color=" + color + ">" + message + "</color>"));
     }
 
     #endregion
 
     #region Log
 
-    public static void Log( object message )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.Log( ApplyStyle( message ) );
+    public static void Log(object message) {
+        if (IsEnabled) {
+            UnityEngine.Debug.Log(ApplyStyle(message));
         }
     }
-    public static void Log( object message, UnityEngine.Object context )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.Log( ApplyStyle( message ), context );
+    public static void Log(object message, UnityEngine.Object context) {
+        if (IsEnabled) {
+            UnityEngine.Debug.Log(ApplyStyle(message), context);
         }
     }
-    public static void LogFormat( string format, params object[] args )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogFormat( format, args );
+    public static void LogFormat(string format, params object[] args) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogFormat(format, args);
         }
     }
-    public static void LogFormat( Object context, string format, params object[] args )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogFormat( context, format, args );
+    public static void LogFormat(Object context, string format, params object[] args) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogFormat(context, format, args);
         }
     }
 
@@ -165,65 +140,56 @@ public static class Debug
 
     #region Error
 
-    public static void LogError( object message )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogError( ApplyStyle( message ) );
+    public static void LogError(object message) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogError(ApplyStyle(message));
         }
     }
-    public static void LogError( object message, UnityEngine.Object context )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogError( ApplyStyle( message ), context );
+    public static void LogError(object message, UnityEngine.Object context) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogError(ApplyStyle(message), context);
         }
     }
-    public static void LogErrorFormat( string format, params object[] args )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogErrorFormat( format, args );
+    public static void LogErrorFormat(string format, params object[] args) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogErrorFormat(format, args);
         }
     }
-    public static void LogErrorFormat( Object context, string format, params object[] args )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogErrorFormat( context, format, args );
+    public static void LogErrorFormat(Object context, string format, params object[] args) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogErrorFormat(context, format, args);
         }
     }
 
     #endregion
 
+    #region Assert 
+
+    public static void Assert(bool condition) => UnityEngine.Debug.Assert(condition);
+    public static void Assert(bool condition, string message) => UnityEngine.Debug.Assert(condition, message);
+
+    #endregion
+
     #region Warning
 
-    public static void LogWarning( object message )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogWarning( ApplyStyle( message ) );
+    public static void LogWarning(object message) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogWarning(ApplyStyle(message));
         }
     }
-    public static void LogWarning( object message, Object context )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogWarning( ApplyStyle( message ), context );
+    public static void LogWarning(object message, Object context) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogWarning(ApplyStyle(message), context);
         }
     }
-    public static void LogWarningFormat( string format, params object[] args )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogWarningFormat( format, args );
+    public static void LogWarningFormat(string format, params object[] args) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogWarningFormat(format, args);
         }
     }
-    public static void LogWarningFormat( Object context, string format, params object[] args )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogWarningFormat( context, format, args );
+    public static void LogWarningFormat(Object context, string format, params object[] args) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogWarningFormat(context, format, args);
         }
     }
 
@@ -231,28 +197,22 @@ public static class Debug
 
     #region Exception
 
-    public static void LogException( System.Exception exception )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogException( exception );
+    public static void LogException(System.Exception exception) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogException(exception);
         }
     }
-    public static void LogException( System.Exception exception, UnityEngine.Object context )
-    {
-        if ( IsEnabled )
-        {
-            UnityEngine.Debug.LogException( exception, context );
+    public static void LogException(System.Exception exception, UnityEngine.Object context) {
+        if (IsEnabled) {
+            UnityEngine.Debug.LogException(exception, context);
         }
     }
 
     #endregion
 
-    private static object ApplyStyle( object message )
-    {
+    private static object ApplyStyle(object message) {
         object log = message;
-        if ( DEFAULT_SIZE != FontSize )
-        {
+        if (DEFAULT_SIZE != FontSize) {
             log = "<size=" + FontSize.ToString() + ">" + message + "</size>";
         }
         log += "\n";
